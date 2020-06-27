@@ -1,0 +1,8 @@
+# 2 x 2 collage with four squared images
+description: 2x2 Square
+shape: [2, 2]
+layout:
+    0: [1, 0, 0]
+    1: [1, 0, 1]
+    2: [1, 1, 0]
+    3: [1, 1, 1]

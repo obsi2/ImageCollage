@@ -17,8 +17,8 @@
 
 import os
 import cv2
-import glob
 import numpy as np
+from ruamel.yaml import YAML
 
 
 class CollageLayout:
@@ -36,65 +36,23 @@ class CollageLayout:
         # layout of images in target image in units of baselength
         # layout_meta: Name, size x, size y
         # layout: index : size, position x, position y
-
+        yaml = YAML()
         if index == 0:
-            self.shape = [2, 2]
-            self.description = '2x2 Square'
-            self.layout = {0: [1, 0, 0],
-                           1: [1, 0, 1],
-                           2: [1, 1, 0],
-                           3: [1, 1, 1]}
-            return self.description, self.shape, self.layout
+            filename = r'collage/2x2_square.yaml'
         if index == 1:
-            self.description = '3x3 Square'
-            self.shape = [3, 3]
-            self.layout = {0: [1, 0, 0],
-                           1: [1, 0, 1],
-                           2: [1, 0, 2],
-                           3: [1, 1, 0],
-                           4: [1, 1, 1],
-                           5: [1, 1, 2],
-                           6: [1, 2, 0],
-                           7: [1, 2, 1],
-                           8: [1, 2, 2], }
-            return self.description, self.shape, self.layout
+            filename = r'collage/3x3_square.yaml'
         if index == 2:
-            self.description = 'nowhere neat Square'
-            self.shape = [27, 27]
-            self.layout = {0: [7, 0, 0],
-                           1: [7, 0, 20],
-                           2: [7, 20, 0],
-                           3: [7, 20, 20],
-                           4: [5, 7, 0],
-                           5: [8, 12, 0],
-                           6: [5, 22, 7],
-                           7: [8, 19, 12],
-                           8: [5, 15, 22],
-                           9: [8, 7, 19],
-                           10: [5, 0, 15],
-                           11: [8, 0, 7],
-                           12: [11, 8, 8],
-                           13: [3, 9, 5],
-                           14: [3, 19, 9],
-                           15: [3, 15, 19],
-                           16: [3, 5, 15],
-                           17: [2, 7, 5],
-                           18: [2, 20, 7],
-                           19: [2, 18, 20],
-                           20: [2, 5, 18],
-                           21: [1, 8, 7],
-                           22: [1, 19, 8],
-                           23: [1, 18, 19],
-                           24: [1, 7, 0],
-                           25: [1, 7, 18], }
-            return self.description, self.shape, self.layout
-        if index == 3:
-            self.description = 'nowhere neat 45 by 15'
-            self.shape = [45, 15]
-            self.layout = {0: [8, 0, 0],
-                           1: [7, 0, 8],
-                           }
-            return self.description, self.shape, self.layout
+            filename = r'collage/27x27_nowhere_neat_square.yaml'
+
+        with open(filename) as file:
+            code = yaml.load(file)
+
+        self.description = code['description']
+        self.shape = code['shape']
+        self.layout = code['layout']
+
+        return self.description, self.shape, self.layout
+
 
 class ImageList:
     ''' Class representing a list of images loaded from file or from memory

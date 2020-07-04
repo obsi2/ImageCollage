@@ -90,6 +90,9 @@ if __name__ == "__main__":
             print('i, indices: toggle display of image indices in collage')
             print('save: save the collage as collage.jpg')
             print('s, switch: switch the images at the given indices')
+            print('b, border: set border in pixels')
+            print('o, outerborder: set outer border in pixels')
+            print('l, baselength: set baselength in pixels')
 
         if text == 'save':
             save_filename = 'collage.jpg'
@@ -113,3 +116,32 @@ if __name__ == "__main__":
             cv2.imshow("image", target_image)
             cv2.waitKey(10)
 
+        if text in ['b', 'border']:
+            border = int(prompt('Border size in pixels: ', validator=validator))
+            # border cannot get larger than (baselength-1)/2
+            border = min(int((my_collage.layout.baselength-1)/2), border)
+            print(f'Setting border to {border} pixels.')
+            my_collage.layout.border = border
+            target_image = my_collage.render_image()
+            cv2.imshow("image", target_image)
+            cv2.waitKey(10)
+
+        if text in ['o', 'outerborder']:
+            outer_border = int(prompt('Outer border size in pixels: ', validator=validator))
+            my_collage.layout.outer_border = outer_border
+            target_image = my_collage.render_image()
+            cv2.imshow("image", target_image)
+            cv2.waitKey(10)
+
+        if text in ['l', 'baselength']:
+            baselength = int(prompt('Baselength size in pixels: ', validator=validator))
+            # decrease border if necessary
+            max_border = min(int((baselength - 1) / 2), my_collage.layout.border)
+            if max_border < my_collage.layout.border:
+                print(f'Setting border to {max_border} pixels to match baselength of {baselength}.')
+                my_collage.layout.border = max_border
+
+            my_collage.layout.baselength = baselength
+            target_image = my_collage.render_image()
+            cv2.imshow("image", target_image)
+            cv2.waitKey(10)

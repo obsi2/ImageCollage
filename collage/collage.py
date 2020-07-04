@@ -98,6 +98,7 @@ class Collage:
         self.index_font_color = (255, 255, 255, 128)
 
     def init_target_image(self):
+        self.shape = self.get_target_image_shape_from_layout()
         target_image = np.full(self.shape, self.background_color, np.uint8)
         return target_image
 

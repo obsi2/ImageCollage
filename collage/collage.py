@@ -43,6 +43,8 @@ class CollageLayout:
             filename = r'collage/3x3_square.yaml'
         if index == 2:
             filename = r'collage/27x27_nowhere_neat_square.yaml'
+        if index == 3:
+            filename = r'collage/16x16_nowhere_neat_square.yaml'
 
         with open(filename) as file:
             code = yaml.load(file)

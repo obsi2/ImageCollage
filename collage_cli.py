@@ -53,7 +53,7 @@ if __name__ == "__main__":
     my_image_list = ImageList(path, filenames)
 
     my_layout = CollageLayout()
-    my_layout.set_layout(2)
+    my_layout.set_layout(3)
 
     # Create target image
     my_layout.baselength = 30
